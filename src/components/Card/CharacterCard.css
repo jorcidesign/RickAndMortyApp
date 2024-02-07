@@ -1,0 +1,46 @@
+.character {
+  /* width: 312px; */
+  /* height: 571px; */
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--Rectangle, #062226);
+  padding-bottom: 16px;
+}
+.character-img img{
+    position: relative;
+    width: 100%;
+}
+
+.character-status {
+    position: absolute;
+    top: 4%;
+    right: 4%;
+    /* right: -210px; */
+    /* padding: 5px 10px; */
+    border-radius: 5px;
+    color: #fff;
+    padding: 8px;
+
+  }
+
+
+
+.character-content{
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+/* Colores de fondo según el estado */
+.character-status__Dead {
+    background-color: #B94343;
+  }
+  
+  .character-status__Alive {
+    background-color: #4AB648;
+  }
+  
+  .character-status__unknown {
+    background-color: grey;
+  }

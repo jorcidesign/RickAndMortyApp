@@ -1,0 +1,42 @@
+.location {
+  min-width: 640px;
+  min-height: 200px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  background: var(--Rectangle, #062226);
+  border-radius: 24px;
+}
+
+.location-frame {
+  display: flex vertical;
+  justify-content: center;
+  align-items: center;
+}
+
+.location-data {
+  display: flex;
+
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+}
+
+.location-name h1 {
+  margin: auto;
+
+  color: var(--4-a-3-aff, #7bb924);
+}
+
+
+@media only screen and (max-width: 768px) {
+  .location {
+    min-width: 320px;
+    max-width: 80px;
+  }
+}

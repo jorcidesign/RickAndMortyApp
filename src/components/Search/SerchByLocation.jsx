@@ -7,6 +7,8 @@ const SearchByLocation = ({onDataFromChild}) => {
     const [suggestions, setSuggestions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [locationIDs, setLocationIDs] = useState('');
+    const [busquedaRealizada, setBusquedaRealizada] = useState(false); 
+    
     useEffect(() => {
         const fetchSuggestions = async () => {
             if (text.trim() === '') {
@@ -34,42 +36,48 @@ const SearchByLocation = ({onDataFromChild}) => {
     }, [text]);
 
     const onChange = evt => {
-        setText(evt.target.value);
+        
+            setText(evt.target.value);
+      
+        
     };
 
-    const onSuggestionClick = suggestion => {
+    const onSuggestionClick = (suggestion,index) => {
         setText(suggestion);
+        onDataFromChild(locationIDs[index]);
         setSuggestions([]);
-        
+        setBusquedaRealizada(true);
     };
 
     const handleSubmit = (evt) => {
       evt.preventDefault();
-      const dataToSendToParent = locationIDs; // Datos que deseas enviar al componente padre
+      const dataToSendToParent = locationIDs[0]; // Datos que deseas enviar al componente padre
       onDataFromChild(dataToSendToParent); // Llama a la función onDataFromChild proporcionada a través de las props
-  };
+      setSuggestions([]);  
+    };
     return (
-        <div className='container' >
+        <div className='searchBar' >
             <form  onSubmit={handleSubmit} className="form">
+                
                 <input
+                    id="search-bar"
                     type="text"
                     name="text"
                     placeholder="Search locations..."
                     value={text}
                     onChange={onChange}
                     className="input"
+                    autoComplete="off" 
                 />
-                <button type="submit" className="button">
-                    Search
-                </button>
+                 <a onClick={handleSubmit} href="#"><img className="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png" alt="Search" /></a>
             </form>
             {loading && <p>Loading...</p>}
             {suggestions.length > 0 && (
                 <ul className="suggestions-list">
                     {suggestions.map((suggestion, index) => (
-                        <li
+                        <li 
                             key={index}
-                            onClick={() => onSuggestionClick(suggestion)}
+                            onClick={() => onSuggestionClick(suggestion,index)  }
                             className="suggestion-item "
                         >
                             {suggestion}

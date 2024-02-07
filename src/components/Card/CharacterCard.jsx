@@ -1,14 +1,17 @@
 import React from "react";
+import './CharacterCard.css'
 
 const CharacterCard = ({ name, specie, origin, appears, image , status}) => {
+  
+
   return (
     <div className="character">
       <div className="character-img">
-        <img width={400} src={image} alt="" />
+        <img src={image} alt="" />
       </div>
       <div className="character-content">
         <div className="character-name">
-          <h1>{name}</h1>
+          <h2>{name}</h2>
         </div>
         <div className="character-data">
           <div className="character-text">
@@ -21,10 +24,10 @@ const CharacterCard = ({ name, specie, origin, appears, image , status}) => {
           </div>
           <div className="character-text">
             <h5>Eppisodes where appear</h5>
-            <div>{appears}</div>
+            <div>{appears.length}</div>
           </div>
         </div>
-        <div className="character-status">
+        <div className={`character-status character-status__${status}`}>
             <span>{status}</span>
         </div>
       </div>

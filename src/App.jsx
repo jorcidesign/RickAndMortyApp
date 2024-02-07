@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import CharacterCard from "./components/Card/CharacterCard";
 import LocationDetails from "./components/LocationDetails/locationDetails";
 import SerchByLocation from "./components/Search/SerchByLocation";
+import "./App.css";
 
 function App() {
   //utils
@@ -47,54 +48,63 @@ function App() {
 
   const handleDataFromChild = (data) => {
     // Lógica para manejar los datos recibidos desde el componente hijo
-    console.log('Data received from child:', data);
+    console.log("Data received from child:", data);
 
-      obtenerDatosByLocation(data[0]);
-    
-};
+    obtenerDatosByLocation(data);
+  };
   console.log(characters);
   // Se puede hacer console.log al estado para ver la respuesta de la api
   // console.log(obtenerIDsDesdeURLs(location.residents));
 
   return (
     <>
+      <header className="header">
+        <div className="header-container">
+          {/* Background image */}
+          <div className="header-background"></div>
+          {/* Logo */}
+          <img src="https://logos-world.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png" alt="Logo" className="header-logo" />
+        </div>
+      </header>
       <div className="searchBar-container">
-      <SerchByLocation onDataFromChild={handleDataFromChild} />
+        <SerchByLocation onDataFromChild={handleDataFromChild} />
       </div>
-      
-      <LocationDetails
-        name={location.name}
-        type={location.type}
-        dimension={location.dimension}
-        population={100}
-      />
-
-      <div className="character-container">
-        {Array.isArray(characters) && characters.length > 0 ? (
-          characters.map((character) => (
+      <div className="location-container">
+        <LocationDetails
+          name={location.name}
+          type={location.type}
+          dimension={location.dimension}
+          population={characters.length ? characters.length : 0}
+        />
+      </div>
+      <div className="characterGrid-container">
+        <div className="character-container">
+          {Array.isArray(characters) && characters.length > 0 ? (
+            characters.map((character) => (
+              <CharacterCard
+                key={character.id}
+                image={character.image}
+                name={character.name}
+                specie={character.species}
+                origin={character["origin"]["name"]}
+                appears={character["episode"]}
+                status={character.status}
+              />
+            ))
+          ) : characters.info ? (
+            <p>No existen personajes</p>
+          ) : (
             <CharacterCard
-              key={character.id}
-              image={character.image}
-              name={character.name}
-              species={character.species}
+              key={characters.id}
+              image={characters.image}
+              name={characters.name}
+              specie={characters.species}
               origin={"123"}
               appears={1}
-              status={character.status}
+              status={characters.status}
             />
-          ))
-        ) : characters.info ? (
-          <p>No existen personajes</p>
-        ) : (
-          <CharacterCard
-            key={characters.id}
-            image={characters.image}
-            name={characters.name}
-            specie={characters.species}
-            origin={"123"}
-            appears={1}
-            status={characters.status}
-          />
-        )}
+          )}
+        </div>
       </div>
     </>
   );
